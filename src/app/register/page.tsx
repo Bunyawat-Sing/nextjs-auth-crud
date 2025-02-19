@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 function RegisterPage() {
   const [name, setName] = useState("");
@@ -10,6 +12,12 @@ function RegisterPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const { data: session } = useSession();
+  if (session) {
+    redirect("/welcome");
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,11 +31,52 @@ function RegisterPage() {
       setError("Please complete all inputs!");
       return;
     }
+
+    try {
+      const resCheckUser = await fetch("/api/checkUser", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+        }),
+      });
+
+      const { user } = await resCheckUser.json();
+
+      if (user) {
+        setError("User already exists!");
+        return;
+      }
+
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      if (res.ok) {
+        setError("");
+        setSuccess("User registration successfully!");
+        (e.target as HTMLFormElement).reset();
+      } else {
+        console.log("User registration failed.");
+      }
+    } catch (error) {
+      console.log("Error during registration: ", error);
+    }
   };
 
   return (
     <div>
-      <Navbar />
+      <Navbar session={session} />
       <div className="container mx-auto">
         <h3>Register Page</h3>
         <hr className="my-3" />
@@ -35,6 +84,11 @@ function RegisterPage() {
           {error && (
             <div className="bg-red-500 w-fit text-sm text-white py-1 px-3 rounded-md mt-2">
               {error}
+            </div>
+          )}
+          {success && (
+            <div className="bg-green-500 w-fit text-sm text-white py-1 px-3 rounded-md mt-2">
+              {success}
             </div>
           )}
           <input
