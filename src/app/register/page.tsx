@@ -85,60 +85,71 @@ function RegisterPage() {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-900">
       <Navbar session={session} />
-      <div className="container mx-auto">
-        <h3>Register Page</h3>
-        <hr className="my-3" />
-        <form onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-500 w-fit text-sm text-white py-1 px-3 rounded-md mt-2">
-              {error}
-            </div>
-          )}
-          {success && (
-            <div className="bg-green-500 w-fit text-sm text-white py-1 px-3 rounded-md mt-2">
-              {success}
-            </div>
-          )}
-          <input
-            onChange={(e) => setName(e.target.value)}
-            className="block bg-gray-300 p-2 my-2 rounded-md"
-            type="text"
-            placeholder="Enter your name"
-          />
-          <input
-            onChange={(e) => setEmail(e.target.value)}
-            className="block bg-gray-300 p-2 my-2 rounded-md"
-            type="text"
-            placeholder="Enter your email"
-          />
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            className="block bg-gray-300 p-2 my-2 rounded-md"
-            type="password"
-            placeholder="Enter your password"
-          />
-          <input
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className="block bg-gray-300 p-2 my-2 rounded-md"
-            type="password"
-            placeholder="Confirm your password"
-          />
-          <button
-            type="submit"
-            className="bg-green-500 p-2 rounded-md text-white"
-          >
-            Sign Up
-          </button>
-        </form>
-        <hr className="my-3" />
-        <p>
-          Already have an account? Go to{" "}
-          <Link className="text-blue-500 hover:underline" href="/login">
-            login
-          </Link>
-        </p>
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-md mx-auto bg-gray-800 rounded-xl p-6 shadow-lg">
+          <h3 className="text-2xl font-bold text-blue-400 mb-4">
+            Create Account
+          </h3>
+          <div className="border-b border-blue-500/20 mb-6" />
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <div className="bg-red-600/20 text-red-300 p-3 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
+            {success && (
+              <div className="bg-green-600/20 text-green-300 p-3 rounded-lg text-sm">
+                {success}
+              </div>
+            )}
+
+            <input
+              onChange={(e) => setName(e.target.value)}
+              className="w-full bg-gray-700 text-gray-100 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              type="text"
+              placeholder="Full Name"
+            />
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full bg-gray-700 text-gray-100 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              type="email"
+              placeholder="Email Address"
+            />
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full bg-gray-700 text-gray-100 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              type="password"
+              placeholder="Password"
+            />
+            <input
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full bg-gray-700 text-gray-100 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              type="password"
+              placeholder="Confirm Password"
+            />
+
+            <button
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition-colors"
+            >
+              Create Account
+            </button>
+          </form>
+
+          <div className="border-b border-blue-500/20 my-6" />
+          <p className="text-gray-400 text-center">
+            Already have an account?{" "}
+            <Link
+              href="/login"
+              className="text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              Sign In
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

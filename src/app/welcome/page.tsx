@@ -90,86 +90,97 @@ export default function Welcome() {
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-gray-900">
       <Navbar session={session} />
-      <div className="container mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-4">Your Posts</h1>
-        <Link
-          href="/create-post"
-          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mb-4 inline-block"
-        >
-          Create New Post
-        </Link>
-        {loading ? (
-          <p className="mt-4">Loading posts...</p>
-        ) : posts.length === 0 ? (
-          <p className="mt-4">No posts found.</p>
-        ) : (
-          <ul className="mt-4 space-y-4">
-            {posts.map((post) => (
-              <li key={post._id} className="border p-4 rounded shadow">
-                {editingPost && editingPost._id === post._id ? (
-                  <div>
-                    <input
-                      type="text"
-                      value={editingPost.title}
-                      onChange={(e) =>
-                        setEditingPost({
-                          ...editingPost,
-                          title: e.target.value,
-                        })
-                      }
-                      className="border p-2 mb-2 w-full"
-                    />
-                    <textarea
-                      value={editingPost.content}
-                      onChange={(e) =>
-                        setEditingPost({
-                          ...editingPost,
-                          content: e.target.value,
-                        })
-                      }
-                      className="border p-2 mb-2 w-full"
-                      placeholder="Content"
-                    />
-                    <button
-                      onClick={handleUpdate}
-                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mr-2"
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={() => setEditingPost(null)}
-                      className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                ) : (
-                  <div>
-                    <h3 className="text-xl font-semibold">{post.title}</h3>
-                    <p className="mt-2 text-gray-600">{post.content}</p>
-                    <div className="mt-4">
-                      <button
-                        onClick={() => handleEdit(post)}
-                        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mr-2"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(post._id)}
-                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-                      >
-                        Delete
-                      </button>
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold text-blue-400">Team Posts</h1>
+            <Link
+              href="/create-post"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+            >
+              Create New Post
+            </Link>
+          </div>
+
+          {loading ? (
+            <div className="text-center text-gray-400">Loading posts...</div>
+          ) : posts.length === 0 ? (
+            <div className="text-center text-gray-400">No posts found.</div>
+          ) : (
+            <div className="space-y-4">
+              {posts.map((post) => (
+                <div
+                  key={post._id}
+                  className="bg-gray-800 rounded-xl p-4 shadow-lg border border-blue-500/20"
+                >
+                  {editingPost && editingPost._id === post._id ? (
+                    <div className="space-y-4">
+                      <input
+                        type="text"
+                        value={editingPost.title}
+                        onChange={(e) =>
+                          setEditingPost({
+                            ...editingPost,
+                            title: e.target.value,
+                          })
+                        }
+                        className="w-full bg-gray-700 text-gray-100 rounded-lg p-2"
+                      />
+                      <textarea
+                        value={editingPost.content}
+                        onChange={(e) =>
+                          setEditingPost({
+                            ...editingPost,
+                            content: e.target.value,
+                          })
+                        }
+                        className="w-full bg-gray-700 text-gray-100 rounded-lg p-2 h-32"
+                      />
+                      <div className="flex gap-2">
+                        <button
+                          onClick={handleUpdate}
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={() => setEditingPost(null)}
+                          className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
+                        >
+                          Cancel
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
+                  ) : (
+                    <div>
+                      <h3 className="text-xl font-semibold text-blue-400">
+                        {post.title}
+                      </h3>
+                      <p className="mt-2 text-gray-300">{post.content}</p>
+                      <div className="flex gap-2 mt-4">
+                        <button
+                          onClick={() => handleEdit(post)}
+                          className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg transition-colors"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(post._id)}
+                          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </>
+    </div>
   );
 }

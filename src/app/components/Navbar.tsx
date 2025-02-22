@@ -11,39 +11,53 @@ interface NavbarProps {
 
 function Navbar({ session }: NavbarProps) {
   return (
-    <nav className="bg-black text-white p-5">
-      <div className="container mx-auto">
-        <div className="flex justify-between items-center">
-          <div>
-            <Link href="/">Home</Link>
-          </div>
-          <ul className="flex gap-3">
+    <nav className="bg-gray-900 border-b border-blue-500/20">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
+          <Link
+            href="/"
+            className="text-2xl font-bold text-blue-500 hover:text-blue-400 transition-colors"
+          >
+            TechTeam
+          </Link>
+
+          <ul className="flex items-center gap-6">
             {!session ? (
               <>
                 <li>
-                  <Link href="/login">Sign In</Link>
+                  <Link
+                    href="/login"
+                    className="text-blue-400 hover:text-blue-300 transition-colors font-medium"
+                  >
+                    Sign In
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/register">Sign Up</Link>
+                  <Link
+                    href="/register"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors font-medium"
+                  >
+                    Sign Up
+                  </Link>
                 </li>
               </>
             ) : (
               <>
                 <li>
-                  <a
+                  <Link
                     href="/welcome"
-                    className="bg-gray-500 text-white border py-2 px-3 rounded-md text-lg my-2"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors font-medium"
                   >
-                    Profile
-                  </a>
+                    Posts
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <button
                     onClick={() => signOut()}
-                    className="bg-red-500 text-white border py-2 px-3 rounded-md text-lg my-2 cursor-pointer"
+                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors font-medium"
                   >
                     Logout
-                  </a>
+                  </button>
                 </li>
               </>
             )}
