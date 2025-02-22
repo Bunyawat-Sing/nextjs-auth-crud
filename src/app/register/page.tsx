@@ -22,8 +22,18 @@ function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (password != confirmPassword) {
-      setError("Password do not match!");
+    if (!email.includes("@")) {
+      setError("Invalid email format!");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long!");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match!");
       return;
     }
 
@@ -64,7 +74,7 @@ function RegisterPage() {
 
       if (res.ok) {
         setError("");
-        setSuccess("User registration successfully!");
+        setSuccess("User registration successful!");
         (e.target as HTMLFormElement).reset();
       } else {
         console.log("User registration failed.");
@@ -106,13 +116,13 @@ function RegisterPage() {
           <input
             onChange={(e) => setPassword(e.target.value)}
             className="block bg-gray-300 p-2 my-2 rounded-md"
-            type="text"
+            type="password"
             placeholder="Enter your password"
           />
           <input
             onChange={(e) => setConfirmPassword(e.target.value)}
             className="block bg-gray-300 p-2 my-2 rounded-md"
-            type="text"
+            type="password"
             placeholder="Confirm your password"
           />
           <button
@@ -124,7 +134,7 @@ function RegisterPage() {
         </form>
         <hr className="my-3" />
         <p>
-          Already have an account? go to{" "}
+          Already have an account? Go to{" "}
           <Link className="text-blue-500 hover:underline" href="/login">
             login
           </Link>
