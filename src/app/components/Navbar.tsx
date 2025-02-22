@@ -40,7 +40,7 @@ function Navbar({ session }: NavbarProps) {
                 <li>
                   <a
                     onClick={() => signOut()}
-                    className="bg-red-500 text-white border py-2 px-3 rounded-md text-lg my-2"
+                    className="bg-red-500 text-white border py-2 px-3 rounded-md text-lg my-2 cursor-pointer"
                   >
                     Logout
                   </a>
