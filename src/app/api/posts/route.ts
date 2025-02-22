@@ -2,7 +2,7 @@ import { connectMongoDB } from "../../../../lib/mongodb";
 import Post from "../../../../models/post";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "../../../../lib/authOptions";
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
